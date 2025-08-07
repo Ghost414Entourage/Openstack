@@ -13,4 +13,13 @@ sudo modprobe -r kvm_intel
 sudo modprobe -r kvm
 
 
+echo -e "blacklist kvm\nblacklist kvm_intel" | sudo tee /etc/modprobe.d/blacklist-kvm.conf
+
+echo -e "blacklist kvm\nblacklist kvm_amd" | sudo tee /etc/modprobe.d/blacklist-kvm.conf
+
+sudo rm /etc/modprobe.d/blacklist-kvm.conf
+
+
+
+
 
