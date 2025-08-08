@@ -21,5 +21,10 @@ sudo rm /etc/modprobe.d/blacklist-kvm.conf
 
 
 
+https://<server-ip>/dashboard
+
+
+
+
 
 
