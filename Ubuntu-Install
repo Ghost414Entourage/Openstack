@@ -32,13 +32,6 @@ nano local.conf
 
 
 
-sudo adduser --shell /bin/bash --home /opt/stack stack
-
-echo "stack ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/stack
-
-
-
-
 
 
 
@@ -50,6 +43,21 @@ RABBIT_PASSWORD=$ADMIN_PASSWORD
 SERVICE_PASSWORD=$ADMIN_PASSWORD
 # Host IP - get your Server/VM IP address from ip addr command
 HOST_IP=<IP of local machine>
+
+
+
+
+
+
+sudo adduser --shell /bin/bash --home /opt/stack stack
+
+echo "stack ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/stack
+
+su - stack
+
+
+
+
 
 
 
