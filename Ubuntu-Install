@@ -29,6 +29,19 @@ nano local.conf
 
 
 
+
+
+
+sudo adduser --shell /bin/bash --home /opt/stack stack
+
+echo "stack ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/stack
+
+
+
+
+
+
+
 [[local|localrc]]
 # Password for KeyStone, Database, RabbitMQ and Service
 ADMIN_PASSWORD=StrongAdminSecret
