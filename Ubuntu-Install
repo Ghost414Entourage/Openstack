@@ -1,3 +1,19 @@
+
+https://opendev.org/openstack/devstack
+
+
+https://docs.openstack.org/devstack/latest/
+
+
+https://github.com/openstack/devstack?tab=readme-ov-file
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 apt-get update && apt update && apt-get upgrade && apt upgrade && apt install aptitude && aptitude full-upgrade
 
 
