@@ -110,7 +110,7 @@ exit
 
 
 
-chown -R stack:stack /home/googlebusiness/devstack
+
 
 
 
