@@ -1,0 +1,218 @@
+lsmod
+
+find /lib/modules/$(uname -r) -name "*.ko*" -exec modinfo {} \; | grep -i dbus
+
+ls /lib/modules/$(uname -r)/kernel | grep -i dbus
+
+find /lib/modules/$(uname -r) -name "*.ko*" -exec sh -c 'modinfo {} | grep -i dbus && (modname=$(modinfo --field name {}); if lsmod | grep -qw "^$modname"; then echo "Status: Enabled"; else echo "Status: Not Enabled"; fi)' \;
+
+find /lib/modules/$(uname -r)/kernel/drivers -name "*.ko*" -exec sh -c 'modinfo {} | grep -i dbus && (modname=$(modinfo --field name {}); if lsmod | grep -qw "^$modname"; then echo "Status: Enabled"; else echo "Status: Not Enabled"; fi)' \;
+
+
+find /lib/modules/$(uname -r) -name "*.ko*" -exec sh -c 'modinfo {} | grep -i dbus && (modname=$(modinfo --field name {}); if lsmod | grep -qw "^$modname"; then echo "Status: Enabled"; else echo "Status: Not Enabled"; fi)' \;
+
+
+find /lib/modules/$(uname -r) -name "*.ko*" -exec sh -c 'modinfo {} | grep -i "^dbus\|description:.*\<dbus" && (modname=$(modinfo --field name {}); if lsmod | grep -qw "^$modname"; then echo "Status: Enabled"; else echo "Status: Not Enabled"; fi)' \;
+
+
+find /lib/modules/$(uname -r) -name "*.ko*" -exec sh -c 'modinfo {} | grep -i "dbus$\|description:.*dbus\>" && (modname=$(modinfo --field name {}); if lsmod | grep -qw "^$modname"; then echo "Status: Enabled"; else echo "Status: Not Enabled"; fi)' \;
+
+find /lib/modules/$(uname -r) -name "*.ko*" -exec sh -c 'modname=$(modinfo --field name {}); echo "$modname" | grep -i dbus && (if lsmod | grep -qw "^$modname"; then echo "Status: Enabled"; else echo "Status: Not Enabled"; fi)' \;
+
+
+find /lib/modules/$(uname -r) -name "*.ko*" -exec sh -c 'modinfo {} | grep -i bluetooth && (modname=$(modinfo --field name {}); if lsmod | grep -qw "^$modname"; then echo "Status: Enabled"; else echo "Status: Not Enabled"; fi)' \;
+
+
+
+
+
+
+
+
+#!/bin/bash
+# Search for kernel modules with "dbus" in name or description and enable them
+
+# Exit on error
+set -e
+
+# Directory for kernel modules
+MODULE_DIR="/lib/modules/$(uname -r)"
+
+# File to store modules for auto-loading at boot
+MODULES_FILE="/etc/modules-load.d/dbus-modules.conf"
+
+# Ensure modules-load.d directory exists
+sudo mkdir -p /etc/modules-load.d
+
+# Find and process modules
+find "$MODULE_DIR" -name "*.ko*" -exec sh -c '
+  modinfo {} | grep -qi dbus && {
+    modname=$(modinfo --field name {});
+    echo "Found module: $modname";
+    if lsmod | grep -qw "^$modname"; then
+      echo "Status: Enabled";
+    else
+      echo "Status: Not Enabled";
+      echo "Enabling module: $modname";
+      sudo modprobe "$modname" || echo "Failed to load module: $modname";
+      # Add to modules-load.d for persistence
+      echo "$modname" | sudo tee -a "$2" > /dev/null;
+    fi
+  }
+' sh {} "$MODULES_FILE" \;
+
+# Update module dependencies
+sudo depmod -a
+
+# Print modules added for auto-loading
+if [ -s "$MODULES_FILE" ]; then
+  echo "Modules added to $MODULES_FILE for auto-loading at boot:"
+  cat "$MODULES_FILE"
+else
+  echo "No modules found with 'dbus' in name or description."
+fi
+
+
+
+
+
+
+chmod +x enable_dbus_modules.sh
+
+sudo ./enable_dbus_modules.sh
+
+
+
+
+
+
+#!/bin/bash
+# Search for kernel modules with "systemd" in name or description and enable them
+
+# Exit on error
+set -e
+
+# Directory for kernel modules
+MODULE_DIR="/lib/modules/$(uname -r)"
+
+# File to store modules for auto-loading at boot
+MODULES_FILE="/etc/modules-load.d/systemd-modules.conf"
+
+# Ensure modules-load.d directory exists
+sudo mkdir -p /etc/modules-load.d
+
+# Find and process modules
+find "$MODULE_DIR" -name "*.ko*" -exec sh -c '
+  modinfo {} | grep -qi systemd && {
+    modname=$(modinfo --field name {});
+    echo "Found module: $modname";
+    if lsmod | grep -qw "^$modname"; then
+      echo "Status: Enabled";
+    else
+      echo "Status: Not Enabled";
+      echo "Enabling module: $modname";
+      sudo modprobe "$modname" || echo "Failed to load module: $modname";
+      # Add to modules-load.d for persistence
+      echo "$modname" | sudo tee -a "$2" > /dev/null;
+    fi
+  }
+' sh {} "$MODULES_FILE" \;
+
+# Update module dependencies
+sudo depmod -a
+
+# Print modules added for auto-loading
+if [ -s "$MODULES_FILE" ]; then
+  echo "Modules added to $MODULES_FILE for auto-loading at boot:"
+  cat "$MODULES_FILE"
+else
+  echo "No modules found with 'systemd' in name or description."
+fi
+
+
+
+
+chmod +x enable_systemd_modules.sh
+
+sudo ./enable_systemd_modules.sh
+
+
+
+
+
+
+#!/bin/bash
+# Search for kernel modules with "netfilter" in name or description and enable them
+
+# Exit on error
+set -e
+
+# Directory for kernel modules
+MODULE_DIR="/lib/modules/$(uname -r)"
+
+# File to store modules for auto-loading at boot
+MODULES_FILE="/etc/modules-load.d/netfilter-modules.conf"
+
+# Ensure modules-load.d directory exists
+sudo mkdir -p /etc/modules-load.d
+
+# Find and process modules
+find "$MODULE_DIR" -name "*.ko*" -exec sh -c '
+  modinfo {} | grep -qi netfilter && {
+    modname=$(modinfo --field name {});
+    echo "Found module: $modname";
+    if lsmod | grep -qw "^$modname"; then
+      echo "Status: Enabled";
+    else
+      echo "Status: Not Enabled";
+      echo "Enabling module: $modname";
+      sudo modprobe "$modname" || echo "Failed to load module: $modname";
+      # Add to modules-load.d for persistence
+      echo "$modname" | sudo tee -a "$2" > /dev/null;
+    fi
+  }
+' sh {} "$MODULES_FILE" \;
+
+# Update module dependencies
+sudo depmod -a
+
+# Print modules added for auto-loading
+if [ -s "$MODULES_FILE" ]; then
+  echo "Modules added to $MODULES_FILE for auto-loading at boot:"
+  cat "$MODULES_FILE"
+else
+  echo "No modules found with 'netfilter' in name or description."
+fi
+
+
+
+
+
+chmod +x enable_netfilter_modules.sh
+
+sudo ./enable_netfilter_modules.sh
+
+
+
+
+
+find /lib/modules/$(uname -r) -name "*.ko*" -exec sh -c 'modinfo {} | grep -i netfilter && (modname=$(modinfo --field name {}); if lsmod | grep -qw "^$modname"; then echo "Status: Enabled"; else echo "Status: Not Enabled"; fi)' \;
+
+
+ls /lib/modules/$(uname -r)
+
+
+find /lib/modules/$(uname -r) -name "*.ko*" -exec sh -c 'modinfo {} | grep -i netfilter && (modname=$(modinfo --field name {}); if lsmod | grep -qw "^$modname"; then echo "Status: Enabled"; else echo "Status: Not Enabled"; sudo modprobe "$modname" && echo "Enabled module: $modname" || echo "Failed to enable module: $modname"; fi)' \;
+
+find /lib/modules/$(uname -r) -name "*.ko*" -exec sh -c 'modname=$(modinfo --field name {}); echo "$modname" | grep -i netfilter && (if lsmod | grep -qw "^$modname"; then echo "Status: Enabled"; else echo "Status: Not Enabled"; fi)' \;
+
+
+find /lib/modules/$(uname -r) -name "*.ko*" -exec sh -c 'modinfo {} | grep -i netfilter && (modname=$(modinfo --field name {}); if lsmod | grep -qw "^$modname"; then echo "Status: Enabled"; else echo "Status: Not Enabled"; fi)' \;
+
+
+find /lib/modules/$(uname -r) -name "*.ko*" -exec sh -c 'modinfo {} | grep -i netfilter && (modname=$(modinfo --field name {}); if lsmod | grep -qw "^$modname"; then echo "Status: Enabled"; else echo "Status: Not Enabled"; fi)' \;
+
+
+find /lib/modules/$(uname -r) -name "*.ko*" -exec sh -c 'modinfo {} | grep -iw netfilter && (modname=$(modinfo --field name {}); if lsmod | grep -qw "^$modname"; then echo "Status: Enabled"; else echo "Status: Not Enabled"; fi)' \;
+
+
