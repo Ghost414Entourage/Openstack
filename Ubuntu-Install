@@ -164,7 +164,8 @@ RABBIT_PASSWORD=$ADMIN_PASSWORD
 SERVICE_PASSWORD=$ADMIN_PASSWORD
 ENABLED_SERVICES=-tempest
 
-
+chmod a+rwx /home/googlebusiness
+chmod 777 /home/googlebusiness
 
 
 
