@@ -60,6 +60,76 @@ su - stack
 
 
 
+/home/googlebusiness/devstack/tools/create-stack-user.sh
+
+
+su - stack
+
+
+cd /home/googlebusiness/devstack
+
+
+
+sudo apt-get update
+sudo apt-get install -y locales
+sudo locale-gen en_US.UTF-8
+sudo update-locale LC_ALL=en_US.UTF-8
+
+
+sudo dnf install -y glibc-langpack-en
+sudo localedef -i en_US -f UTF-8 en_US.UTF-8
+
+
+sudo chown -R stack:stack /home/googlebusiness/devstack
+
+
+cp /home/googlebusiness/devstack/samples/local.conf /home/googlebusiness/devstack/local.conf
+
+
+
+exit
+
+
+
+chown -R stack:stack /home/googlebusiness/devstack
+
+
+
+ls -ld /home/googlebusiness/devstack
+
+
+chown -R stack:stack /home/googlebusiness/devstack
+
+
+ls -ld /home/googlebusiness
+
+
+chmod o+x /home/googlebusiness
+
+
+
+cd /home/googlebusiness/devstack
+
+df -T /home/googlebusiness
+
+
+
+
+mv /home/googlebusiness/devstack /opt/stack/devstack
+chown -R stack:stack /opt/stack/devstack
+
+
+su - stack
+cd /opt/stack/devstack
+./stack.sh
+
+./stack.sh
+
+
+
+
+
+
 
 
 
