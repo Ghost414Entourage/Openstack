@@ -1,3 +1,6 @@
+apt-get update && apt update && apt-get upgrade && apt upgrade && apt install aptitude && aptitude full-upgrade
+
+
 git clone https://git.openstack.org/openstack-dev/devstack
 
 
