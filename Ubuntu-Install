@@ -145,6 +145,23 @@ cd /opt/stack/devstack
 ./stack.sh
 
 
+sudo apt-get update
+sudo apt-get install -y mariadb-server
+
+
+
+cp /home/googlebusiness/devstack/samples/local.conf /home/googlebusiness/devstack/local.conf
+
+nano /home/googlebusiness/devstack/local.conf 
+
+[[local|localrc]]
+ADMIN_PASSWORD=secret
+DATABASE_PASSWORD=$ADMIN_PASSWORD
+RABBIT_PASSWORD=$ADMIN_PASSWORD
+SERVICE_PASSWORD=$ADMIN_PASSWORD
+ENABLED_SERVICES=-tempest
+
+
 
 
 
