@@ -7,7 +7,9 @@ https://docs.openstack.org/devstack/latest/
 
 https://github.com/openstack/devstack?tab=readme-ov-file
 
+https://github.com/canonical/canonical-openstack-docs
 
+https://canonical-openstack.readthedocs-hosted.com/en/latest/how-to/#
 
 
 
@@ -173,6 +175,15 @@ ENABLED_SERVICES=-tempest
 chmod a+rwx /home/googlebusiness
 chmod 777 /home/googlebusiness
 
+
+
+
+
+sudo apt update
+sudo apt install make python3 python3-venv python3-pip
+
+
+sudo apt install npm snapd
 
 
 
