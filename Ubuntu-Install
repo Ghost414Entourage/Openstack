@@ -233,6 +233,7 @@ HOST_IP=<IP of local machine>
 
 
 
+apt-get update && apt-get install -y software-properties-common
 
 
 
