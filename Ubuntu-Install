@@ -21,7 +21,7 @@ https://docs.openstack.org/install-guide/
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-apt-get update && apt update && apt-get upgrade && apt upgrade && apt install aptitude && aptitude full-upgrade
+apt-get update -y && apt update -y && apt-get upgrade -y && apt upgrade -y && apt install aptitude -y && aptitude full-upgrade -y
 
 
 git clone https://git.openstack.org/openstack-dev/devstack
