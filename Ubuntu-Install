@@ -35,6 +35,8 @@ cd devstack
 
 ./stack.sh
 
+sudo apt install tasksel 
+
 
 
 
