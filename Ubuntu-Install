@@ -27,6 +27,7 @@ apt-get update -y && apt update -y && apt-get upgrade -y && apt upgrade -y && ap
 
 git clone https://git.openstack.org/openstack-dev/devstack
 
+sudo apt install build-essential
 
 
 cd devstack
