@@ -246,3 +246,6 @@ apt install chrony
 
 
 
+sudo apt install -y python3-pip python3-dev libffi-dev gcc libssl-dev
+
+
